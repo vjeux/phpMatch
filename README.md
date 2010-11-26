@@ -26,6 +26,7 @@ Takes
 	* ` is automatically used as regex escaping character
 	* \n and \t are trimmed (not spaces!)
 	* Multiple line environment
+* **trim**: Optional: false to disable the removal of the \n and \t
 
 Returns
 
@@ -91,6 +92,7 @@ Takes
 	* ` is automatically used as regex escaping character
 	* \n and \t are trimmed (not spaces!)
 	* Multiple line environment
+* **trim**: Optional: false to disable the removal of the \n and \t
 
 Returns
 
