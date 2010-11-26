@@ -12,29 +12,22 @@
 	Takes
 	 - str: the string to execute the search on
 	 - regex: the regular expression to match
-		Captured elements **must be named** (?P<name>pattern)
 		` is automatically used as regex escaping character
 		\n and \t are trimmed (not spaces!)
 		Multiple line environment
 	
-	Return
-	 - array of associative arrays
+	Returns
+	 - array of (string / array / associative array)
 */
 
 function match_all($str, $regex, $trim = true) {
-	$regex = '`' . $regex . '`ms';
-	if ($trim) {
-		$regex = str_replace(array("\n", "\t"), '', $regex);
-	}
-	preg_match_all($regex, $str, $result, PREG_SET_ORDER);
+	preg_match_all(_change_regex($regex, $trim), $str, $results, PREG_SET_ORDER);
 
-	for ($i = 0; $i < count($result); ++$i) {
-		for ($j = 0; array_key_exists($j, $result[$i]); ++$j) {
-			unset($result[$i][$j]);
-		}
+	foreach ($results as $key => $result) {
+		$results[$key] = _change_result($result);
 	}
 
-	return $result;
+	return $results;
 }
 
 /* 
@@ -47,23 +40,32 @@ function match_all($str, $regex, $trim = true) {
 		\n and \t are trimmed (not spaces!)
 		Multiple line environment
 	
-	Return
+	Returns
 	 - false: is nothing is matched
-     - string: if there's one non-named captured element
+	 - string: if there's one non-named captured element
 	 - associative array: if there are named captured elements
 	 - array: all the captured elements
 */
 
 function match($str, $regex, $trim = true) {
+	$found = preg_match(_change_regex($regex, $trim), $str, $result);
+	if (!$found) {
+		return false;
+	}
+	return _change_result($result);
+}
+
+/* Helpers */
+
+function _change_regex($regex, $trim) {
 	$regex = '`' . $regex . '`ms';
 	if ($trim) {
 		$regex = str_replace(array("\n", "\t"), '', $regex);
 	}
-	$found = preg_match($regex,	$str, $result);
-	if (!$found) {
-		return $found;
-	}
+	return $regex;
+}
 
+function _change_result($result) {
 	// If there are named keys, remove all the integer keys
 	$is_digit = true;
 	foreach ($result as $key => $values) {
@@ -72,12 +74,12 @@ function match($str, $regex, $trim = true) {
 			break;
 		}
 	}
+
 	if (!$is_digit) {
 		for ($j = 0; array_key_exists($j, $result); ++$j) {
 			unset($result[$j]);
 		}
 	}
-
 	else {
 		// Remove the matched string, we want only the captured results
 		array_shift($result);
