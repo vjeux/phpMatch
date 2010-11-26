@@ -17,7 +17,10 @@
 		Multiple line environment
 	
 	Returns
-	 - array of (string / array / associative array)
+	 - array of
+		 - string: if there's one non-named captured element
+		 - associative array: if there are named captured elements
+		 - array: all the captured elements
 */
 
 function match_all($str, $regex, $trim = true) {
