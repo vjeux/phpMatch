@@ -78,7 +78,7 @@ The . is also capturing \n, this will let you use the [.*? trick](http://www.goo
 Match All
 ---------
 
-match_all is the same as match but captures more than the first!
+match_all is the same as match but captures more than the first. It returns a
 
 ### Prototype
 
@@ -88,7 +88,6 @@ Takes
 
 * **str**: the string to execute the search on
 * **regex**: the regular expression to match
-	* **Captured elements must be named** (?P<name>pattern)
 	* ` is automatically used as regex escaping character
 	* \n and \t are trimmed (not spaces!)
 	* Multiple line environment
@@ -101,6 +100,12 @@ Returns
 	* **array**: all the captured elements
 
 ### Examples
+
+	$file = <<<EOF
+	<a href="http://blog.vjeux.com/">Vjeux</a>
+	<a href="http://www.curse.com/">Curse</a>
+	<a href="http://www.google.com/">Google</a>
+	EOF;
 
 	$singles = match_all($file, '<a href="[^"]+">(.*?)</a>');
 	print_r($singles);
