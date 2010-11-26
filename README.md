@@ -1,7 +1,16 @@
 [phpMatch](http://blog.vjeux.com/) - user friendly preg_match
 ================================
 
-preg_match is your ally when you are working on spiders, however it is not really convenient to work with. Those small helpers will help you capture elements with more ease!
+preg_match is your ally when you are working on web spiders, however it is not really convenient to work with. Those small helpers will help you capture elements with more ease!
+
+* The result is directly in the return value and have the form you expect
+	* Capturing one element will give you that element, it won't be wrapper on an array
+	* No more duplicate in the array when naming the elements
+	* The matched string is removed from the result. It is annoying when dumping the result and who ever used it!?
+* Regex is configured properly to fit your needs
+	* ` is used as regex escape character
+	* ms options to be multi-line ready
+	* tabs and new lines are removed to let you write readable regex
 
 Match
 -----
