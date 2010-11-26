@@ -57,12 +57,13 @@ The first element of the resulting array (the matched string) is removed, you no
 When working on real files, your regexes can be complex. You can use tabs and line breaks to make it more readable.
 The . is also capturing \n, this will let you use the magic .*? to magically capture the content you want :)
 
-	$file = <<EOF
+	$file = <<<EOF
 	<div><a class="abc" id="123"><strong>Name</strong></a>
-	
+
 	</div>
 	EOF;
 
+	// WARNING: Make sure you convert the indentation to TABs when copy & pasting the code!
 	$multiline = match($file, '
 		<div>
 		.*?
@@ -70,9 +71,9 @@ The . is also capturing \n, this will let you use the magic .*? to magically cap
 			(?P<name>.*?)
 		</a>
 		.*?
-		</div>);
-	// array("class" => "abc", "id" => "123", "name" => "<strong>Name</strong>")
+		</div>');
 
+	// array("class" => "abc", "id => "123", "name" => "\n\t\t<strong>\n\t\t\tName\n\t\t</strong>")
 
 Match All
 ---------
