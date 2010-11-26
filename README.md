@@ -25,7 +25,45 @@ Returns
 * **associative array**: if there are named captured elements
 * **array**: all the captured elements
 
+
+### Examples
+
+The value is directly returned by the function, no need to do write another line to get the result. false is returned when nothing is matched.
+
+	$none = match('<a class="abc">', 'id="([0-9]+)"');
+	// false
+
+If you are only capturing one element, it is given as is. No more useless single array.
+	$string = match('<a id="123">', 'id="([0-9]+)"');
+	// 123
+
+When naming elements, all the numbered values are removed!
+	$assoc = match('<a class="abc" id="123">', '<a class="(?P<class>[^"]+)" id="(?P<class>[^"]+)">');
+	// array("class" => "abc", "id" => "123")
+
+The first element of the resulting array (the matched string) is removed, you now only get what you wanted!
+	$array = match('<a class="abc" id="123">', '<a class="([^"]+)" id="([^"]+)">');
+	// array("abc", "123")
+
+When working on real files, your regexes can be complex. You can use tabs and line breaks to make it more readable.
+The . is also capturing \n, this will let you use the magic .*? to magically capture the content you want :)
+
+	$file = <<EOF
+	<div><a class="abc" id="123"><strong>Name</strong></a>
 	
+	</div>
+	EOF;
+
+	$multiline = match($file, '
+		<div>
+		.*?
+		<a class="(?P<class>[^"]+)" id="(?P<id>[^"]+)">
+			(?P<name>.*?)
+		</a>
+		.*?
+		</div>);
+	// array("class" => "abc", "id" => "123", "name" => "<strong>Name</strong>")
+
 
 Match All
 ---------
