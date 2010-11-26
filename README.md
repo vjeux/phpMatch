@@ -55,7 +55,7 @@ The first element of the resulting array (the matched string) is removed, you no
 	// array("abc", "123")
 
 When working on real files, your regexes can be complex. You can use tabs and line breaks to make it more readable.
-The . is also capturing \n, this will let you use the magic .*? to magically capture the content you want :)
+The . is also capturing \n, this will let you use the [.*? trick](http://www.google.fr/search?q=regex+non+greedy) to magically capture the content you want :)
 
 	$file = <<<EOF
 	<div><a class="abc" id="123"><strong>Name</strong></a>
