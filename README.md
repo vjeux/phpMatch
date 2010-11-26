@@ -14,9 +14,9 @@ Takes
 
 * **str**: the string to execute the search on
 * **regex**: the regular expression to match
-**	` is automatically used as regex escaping character
-**	\n and \t are trimmed (not spaces!)
-**	Multiple line environment
+ * ` is automatically used as regex escaping character
+ * \n and \t are trimmed (not spaces!)
+ * Multiple line environment
 
 Returns
 
