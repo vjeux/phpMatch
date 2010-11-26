@@ -78,7 +78,7 @@ The . is also capturing \n, this will let you use the [.*? trick](http://www.goo
 Match All
 ---------
 
-match_all is the same as match but captures more than the first. It returns a
+match_all is the same as match but captures more than the first.
 
 ### Prototype
 
