@@ -38,6 +38,7 @@ Returns
 
 ### Examples
 For all the examples, this is the $file variable.
+
 	$file = <<<EOF
 	<div><a class="abc" id="123"><strong>Name</strong></a>
 
@@ -50,14 +51,17 @@ The value is directly returned by the function, no need to do write another line
 	// false
 
 If you are only capturing one element, it is given as is. No more useless single array.
+
 	$string = match($file, 'id="([0-9]+)"');
 	// 123
 
 When naming elements, all the numbered values are removed!
+
 	$assoc = match($file, '<a class="(?P<class>[^"]+)" id="(?P<class>[^"]+)">');
 	// array("class" => "abc", "id" => "123")
 
 The first element of the resulting array (the matched string) is removed, you now only get what you wanted!
+
 	$array = match('<a class="abc" id="123">', '<a class="([^"]+)" id="([^"]+)">');
 	// array("abc", "123")
 
